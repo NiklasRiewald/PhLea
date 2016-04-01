@@ -1,0 +1,16 @@
+{
+  "require-dev": {
+    "phpunit/phpunit": "*"
+  },
+  "autoload": {
+    "psr-0": {
+      "PhLea\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-0": {
+      "PhLea\\": "src/",
+      "PhLeaTest\\": "tests/"
+    }
+  }
+}
