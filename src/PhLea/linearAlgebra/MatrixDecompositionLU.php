@@ -4,7 +4,7 @@
 namespace PhLea\linearAlgebra;
 
 
-class MatrixDecompositionLU implements MatrixDecompositionInterface
+class MatrixDecompositionLU
 {
 
     public function decompose(Mat $mat)

@@ -4,7 +4,7 @@
 namespace PhLea\linearAlgebra;
 
 
-class MatrixInverterLU implements MatrixInverterInterface
+class MatrixInverter
 {
     /*@var MatrixDecompositionLU */
     private $decompositionLU;

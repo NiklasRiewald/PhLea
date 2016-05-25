@@ -15,9 +15,9 @@ class LinearAlgebraFactory
     }
 
     /**
-     * @return MatrixInverterLU
+     * @return MatrixInverter
      */
-    public function getInstanceOfMatrixInverterLU() {
-        return new MatrixInverterLU($this->getInstanceOfMatrixDecompositionLU());
+    public function getInstanceOfMatrixInverter() {
+        return new MatrixInverter($this->getInstanceOfMatrixDecompositionLU());
     }
 }

@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$USER_HOME$/PhpstormProjects/PhLea/.idea/PhLea.iml" filepath="$USER_HOME$/PhpstormProjects/PhLea/.idea/PhLea.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/PhLea.iml" filepath="$PROJECT_DIR$/.idea/PhLea.iml" />
     </modules>
   </component>
 </project>
