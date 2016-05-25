@@ -1,6 +1,6 @@
 <?php
 
-namespace PhLea\matrix;
+namespace PhLea\linearAlgebra;
 
 class Mat
 {
@@ -86,89 +86,6 @@ class Mat
     }
 
     /**
-     * @return Mat
-     */
-    public function getInverse()
-    {
-        $inverse = clone $this;
-        return $inverse->inverse();
-    }
-
-    /**
-     * Inverse matrix using LU decomposition
-     * Look at http://www.cl.cam.ac.uk/teaching/1314/NumMethods/supporting/mcmaster-kiruba-ludecomp.pdf for an explanation
-     * Returns true if the inversion is successful and false if the matrix is singular or not square
-     *
-     * @return bool
-     */
-    public function inverse()
-    {
-        if ($this->rows != $this->columns) {
-            return false;
-        }
-
-        $resultMat = new Mat($this->columns, $this->rows);
-
-        $this->decomposeIntoLU();
-        $rowsMinusOne = $this->rows - 1;
-
-        for ($y = 0; $y < $this->rows; $y++) {
-
-            //initialising b (the y-th unit vector)
-            $b = new \SplFixedArray($this->rows);
-            for ($x = 0; $x < $this->rows; $x++) {
-                if ($y == $x) {
-                    $b[$x] = 1;
-                } else {
-                    $b[$x] = 0;
-                }
-            }
-
-            //solving Lz = b
-            $z = new \SplFixedArray($this->rows);
-            $z[0] = $b[0];
-            for ($k = 1; $k < $this->rows; $k++) {
-                $s = 0;
-                for ($x = 0; $x < $k; $x++) {
-                    $s += $this->get($x, $k) * $z[$x];
-                }
-                $z[$k] = $b[$k] - $s;
-            }
-
-            //solving Uw = z
-            $z[$rowsMinusOne] = $z[$rowsMinusOne] / $this->get($rowsMinusOne, $rowsMinusOne);
-            for ($k = $rowsMinusOne - 1; $k >= 0; $k--) {
-                $s = 0;
-                for ($x = $k + 1; $x < $this->rows; $x++) {
-                    $s += $this->get($x, $k) * $z[$x];
-                }
-                $z[$k] = ($z[$k] - $s) / $this->get($k, $k);
-            }
-
-            //copying data into result matrix
-            for ($x = 0; $x < $this->rows; $x++) {
-                $resultMat->set($y, $x, $z[$x]);
-            }
-        }
-        $this->data = $resultMat->data;
-        return true;
-    }
-
-    public function decomposeIntoLU()
-    {
-        $rowsMinusOne = $this->rows - 1;
-        for ($k = 0; $k < $rowsMinusOne; $k++) {
-            for ($y = $k + 1; $y < $this->rows; $y++) {
-                $this->set($k, $y, $this->get($k, $y) / $this->get($k, $k));
-
-                for ($x = $k + 1; $x < $this->rows; $x++) {
-                    $this->set($x, $y, $this->get($x, $y) - ($this->get($k, $y) * $this->get($x, $k)));
-                }
-            }
-        }
-    }
-
-    /**
      * @param int $x
      * @param int $y
      * @return float
@@ -238,6 +155,21 @@ class Mat
     public function getSize()
     {
         return $this->data->getSize();
+    }
+
+    /**
+     * @return \SplFixedArray
+     */
+    public function getData()
+    {
+        return $this->data;
+    }
+
+    /**
+     * @param \SplFixedArray $data
+     */
+    public function setData(\SplFixedArray $data) {
+        $this->data = $data;
     }
 
 }

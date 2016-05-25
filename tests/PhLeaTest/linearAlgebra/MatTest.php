@@ -1,6 +1,6 @@
 <?php
 
-namespace PhLea\matrix;
+namespace PhLea\linearAlgebra;
 
 class MatTest extends \PHPUnit_Framework_TestCase
 {
@@ -89,74 +89,5 @@ class MatTest extends \PHPUnit_Framework_TestCase
         )));
 
         $this->assertEquals($matExpected, $matTransposed);
-    }
-
-    public function testInverse()
-    {
-        $mat = new Mat(4, 4, \SplFixedArray::fromArray(array(
-            4, -5, 3, 0,
-            -1, -3, -11, 11,
-            4, 2, 2, 1,
-            2, 0, -3, -2
-        )));
-
-        $mat->inverse();
-
-        $matExpected = new Mat(4, 4, \SplFixedArray::fromArray(array(
-            (107 / 2063), (17 / 2063), (293 / 2063), (240 / 2063),
-            (-285 / 2063), (-26 / 2063), (280 / 2063), (-3 / 2063),
-            (70 / 2063), (-66 / 2063), (76 / 2063), (-325 / 2063),
-            (2 / 2063), (116 / 2063), (179 / 2063), (-304 / 2063)
-        )));
-
-        $this->assertEquals($matExpected, $mat);
-    }
-
-    public function testInverseSingularMatrix()
-    {
-        $mat = new Mat(2, 2, \SplFixedArray::fromArray(array(
-            4, 2,
-            2, 1
-        )));
-
-        $mat->inverse();
-        $matExpected = new Mat(2, 2, \SplFixedArray::fromArray(array(
-            1 / 4
-        )));
-
-        $this->assertEquals($matExpected, $mat);
-    }
-
-    public function testInverseSingleElement()
-    {
-        $mat = new Mat(1, 1, \SplFixedArray::fromArray(array(
-            4
-        )));
-
-        $mat->inverse();
-        $matExpected = new Mat(1, 1, \SplFixedArray::fromArray(array(
-            1 / 4
-        )));
-
-        $this->assertEquals($matExpected, $mat);
-    }
-
-    public function testDecomposeIntoLU()
-    {
-        $mat = new Mat(3, 3, \SplFixedArray::fromArray(array(
-            8, 6, -2,
-            1, 7, -4,
-            3, 5, 3
-        )));
-
-        $mat->decomposeIntoLU();
-
-        $matExpected = new Mat(3, 3, \SplFixedArray::fromArray(array(
-            8, 6, -2,
-            0.125, 6.25, -3.75,
-            0.375, 0.44, 5.4000000000000004
-        )));
-
-        $this->assertEquals($matExpected, $mat);
     }
 }

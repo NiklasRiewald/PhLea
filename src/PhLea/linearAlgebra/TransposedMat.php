@@ -1,7 +1,7 @@
 <?php
 
 
-namespace PhLea\matrix;
+namespace PhLea\linearAlgebra;
 
 
 class TransposedMat extends Mat
