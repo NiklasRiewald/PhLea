@@ -16,8 +16,7 @@ class MatrixInverterTest extends \PHPUnit_Framework_TestCase
             2, 0, -3, -2
         )));
 
-        $linearAlgebraFactory = new LinearAlgebraFactory();
-        $matrixInverter = $linearAlgebraFactory->getInstanceOfMatrixInverter();
+        $matrixInverter = LinearAlgebraFactory::getInstanceOfMatrixInverterLU($mat);
         $matrixInverter->invert($mat);
 
         $matExpected = new Mat(4, 4, \SplFixedArray::fromArray(array(
@@ -37,8 +36,7 @@ class MatrixInverterTest extends \PHPUnit_Framework_TestCase
             2, 1
         )));
 
-        $linearAlgebraFactory = new LinearAlgebraFactory();
-        $matrixInverter = $linearAlgebraFactory->getInstanceOfMatrixInverter();
+        $matrixInverter = LinearAlgebraFactory::getInstanceOfMatrixInverterLU($mat);
         $matrixInverter->invert($mat);
         $matExpected = new Mat(2, 2, \SplFixedArray::fromArray(array(
             1 / 4
@@ -54,8 +52,7 @@ class MatrixInverterTest extends \PHPUnit_Framework_TestCase
             2, 1
         )));
 
-        $linearAlgebraFactory = new LinearAlgebraFactory();
-        $matrixInverter = $linearAlgebraFactory->getInstanceOfMatrixInverter();
+        $matrixInverter = LinearAlgebraFactory::getInstanceOfMatrixInverterLU($mat);
         $matrixInverter->invert($mat);
         $matExpected = new Mat(2, 2, \SplFixedArray::fromArray(array(
             (-1 / 4), (1 / 2),
@@ -71,8 +68,7 @@ class MatrixInverterTest extends \PHPUnit_Framework_TestCase
             4
         )));
 
-        $linearAlgebraFactory = new LinearAlgebraFactory();
-        $matrixInverter = $linearAlgebraFactory->getInstanceOfMatrixInverter();
+        $matrixInverter = LinearAlgebraFactory::getInstanceOfMatrixInverterLU($mat);
         $matrixInverter->invert($mat);
         $matExpected = new Mat(1, 1, \SplFixedArray::fromArray(array(
             1 / 4

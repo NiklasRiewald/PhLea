@@ -10,14 +10,26 @@ class LinearAlgebraFactory
     /**
      * @return MatrixDecompositionLU
      */
-    public function getInstanceOfMatrixDecompositionLU() {
+    public static function getInstanceOfMatrixDecompositionLU()
+    {
         return new MatrixDecompositionLU();
     }
 
     /**
+     * @param Mat $A
      * @return MatrixInverter
      */
-    public function getInstanceOfMatrixInverter() {
-        return new MatrixInverter($this->getInstanceOfMatrixDecompositionLU());
+    public static function getInstanceOfMatrixInverterLU(Mat $A)
+    {
+        return new MatrixInverter(LinearAlgebraFactory::getInstanceOfSolverLU($A));
+    }
+
+    /**
+     * @param Mat $A
+     * @return SolverLU
+     */
+    public static function getInstanceOfSolverLU(Mat $A)
+    {
+        return new SolverLU($A);
     }
 }
