@@ -85,6 +85,21 @@ class Mat
         return new TransposedMat($this);
     }
 
+    public static function getIdentityMatrix($rows)
+    {
+        $identityMat = new Mat($rows, $rows);
+        for ($j = 0; $j < $rows; $j++) {
+            for ($i = 0; $i < $rows; $i++) {
+                if ($i == $j) {
+                    $identityMat->set($i, $j, 1);
+                } else {
+                    $identityMat->set($i, $j, 0);
+                }
+            }
+        }
+        return $identityMat;
+    }
+
     /**
      * @param int $x
      * @param int $y
@@ -168,7 +183,8 @@ class Mat
     /**
      * @param \SplFixedArray $data
      */
-    public function setData(\SplFixedArray $data) {
+    public function setData(\SplFixedArray $data)
+    {
         $this->data = $data;
     }
 

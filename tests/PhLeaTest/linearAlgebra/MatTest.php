@@ -90,4 +90,16 @@ class MatTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals($matExpected, $matTransposed);
     }
+
+    public function testGetIdentityMatrix()
+    {
+        $identityMatrix = Mat::getIdentityMatrix(3);
+        $expectedMat = new Mat(3, 3, \SplFixedArray::fromArray(
+            array(
+                1, 0, 0,
+                0, 1, 0,
+                0, 0, 1)));
+
+        $this->assertEquals($expectedMat, $identityMatrix);
+    }
 }
