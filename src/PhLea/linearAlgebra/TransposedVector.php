@@ -13,6 +13,6 @@ class TransposedVector extends Mat
 
     public function setValue($x, $value)
     {
-        $this->set($x, 1, $value);
+        $this->set($x, 0, $value);
     }
 }

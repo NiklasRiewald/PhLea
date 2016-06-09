@@ -13,6 +13,6 @@ class Vector extends Mat
 
     public function setValue($y, $value)
     {
-        $this->set(1, $y, $value);
+        $this->set(0, $y, $value);
     }
 }
