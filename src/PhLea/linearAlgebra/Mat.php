@@ -130,6 +130,18 @@ class Mat
     }
 
     /**
+     * @param int $y
+     * @return TransposedVector
+     */
+    public function getRow($y) {
+        $row = new TransposedVector($this->columns);
+        for($i = 0; $i < $this->columns; $i++) {
+            $row->setValue($i, $this->get($i, $y));
+        }
+        return $row;
+    }
+
+    /**
      * @param int $x
      * @param int $y
      * @param float $value
@@ -146,6 +158,16 @@ class Mat
     public function setAtIndex($i, $value)
     {
         $this->data[$i] = $value;
+    }
+
+    /**
+     * @param int $x
+     * @param Vector $row
+     */
+    public function setColumn($x, $row) {
+        foreach($row->getData() as $index => $value) {
+            $this->set($x, $index, $value);
+        }
     }
 
     /**

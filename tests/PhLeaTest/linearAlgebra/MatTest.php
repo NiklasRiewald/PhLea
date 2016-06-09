@@ -102,4 +102,33 @@ class MatTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals($expectedMat, $identityMatrix);
     }
+
+    public function testGetRow()
+    {
+        $mat = new Mat(4, 2, \SplFixedArray::fromArray(array(
+            3, 1, -2, 5,
+            4, -1, 5, -3
+        )));
+        $expectedRow = new TransposedVector(4, \SplFixedArray::fromArray(
+            array(4, -1, 5, -3)));
+        $this->assertEquals($expectedRow, $mat->getRow(1));
+    }
+
+    public function testSetColumn()
+    {
+        $mat = new Mat(4, 2, \SplFixedArray::fromArray(array(
+            3, 1, -2, 5,
+            4, -1, 5, -3
+        )));
+        $mat->setColumn(1, new Vector(2, \SplFixedArray::fromArray(array(
+            8,
+            9))));
+
+        $matExpected = new Mat(4, 2, \SplFixedArray::fromArray(array(
+            3, 8, -2, 5,
+            4, 9, 5, -3
+        )));
+
+        $this->assertEquals($matExpected, $mat);
+    }
 }
