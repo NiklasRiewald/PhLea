@@ -9,6 +9,9 @@ class MatrixDecompositionLU
     /*@var Mat */
     private $permutationMatrix;
 
+    /**
+     * @param Mat $mat
+     */
     public function decompose(Mat $mat)
     {
         $this->permutationMatrix = Mat::getIdentityMatrix($mat->getRows());
@@ -37,6 +40,9 @@ class MatrixDecompositionLU
         }
     }
 
+    /**
+     * @return Mat
+     */
     public function getPermutationMatrix()
     {
         return $this->permutationMatrix;
