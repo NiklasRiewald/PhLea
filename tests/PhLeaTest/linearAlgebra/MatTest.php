@@ -132,6 +132,24 @@ class MatTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expectedMat, $mat);
     }
 
+    public function testSwapRows()
+    {
+        $mat = new Mat(4, 3, \SplFixedArray::fromArray(array(
+            2, 3, 4, -9,
+            4, -1, 5, -3,
+            1, 0, 1, -1
+        )));
+        $mat->swapRows(0, 2);
+
+        $expectedMat = new Mat(4, 3, \SplFixedArray::fromArray(array(
+            1, 0, 1, -1,
+            4, -1, 5, -3,
+            2, 3, 4, -9
+        )));
+
+        $this->assertEquals($expectedMat, $mat);
+    }
+
     public function testSetColumn()
     {
         $mat = new Mat(4, 2, \SplFixedArray::fromArray(array(

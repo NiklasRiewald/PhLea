@@ -139,6 +139,17 @@ class Mat
     }
 
     /**
+     * @param int $y1
+     * @param int $y2
+     */
+    public function swapRows($y1, $y2)
+    {
+        $row1 = $this->getRow($y1);
+        $this->setRow($y1, $this->getRow($y2));
+        $this->setRow($y2, $row1);
+    }
+
+    /**
      * @param int $x
      * @param int $y
      * @param float $value
