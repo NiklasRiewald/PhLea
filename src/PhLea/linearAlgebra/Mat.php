@@ -85,21 +85,6 @@ class Mat
         return new TransposedMat($this);
     }
 
-    public static function getIdentityMatrix($rows)
-    {
-        $identityMat = new Mat($rows, $rows);
-        for ($j = 0; $j < $rows; $j++) {
-            for ($i = 0; $i < $rows; $i++) {
-                if ($i == $j) {
-                    $identityMat->set($i, $j, 1);
-                } else {
-                    $identityMat->set($i, $j, 0);
-                }
-            }
-        }
-        return $identityMat;
-    }
-
     /**
      * @param int $x
      * @param int $y
@@ -133,13 +118,16 @@ class Mat
      * @param int $y
      * @return TransposedVector
      */
-    public function getRow($y) {
+    public function getRow($y)
+    {
         $row = new TransposedVector($this->columns);
-        for($i = 0; $i < $this->columns; $i++) {
+        for ($i = 0; $i < $this->columns; $i++) {
             $row->setValue($i, $this->get($i, $y));
         }
         return $row;
     }
+
+
 
     /**
      * @param int $x
@@ -164,8 +152,9 @@ class Mat
      * @param int $x
      * @param Vector $row
      */
-    public function setColumn($x, $row) {
-        foreach($row->getData() as $index => $value) {
+    public function setColumn($x, $row)
+    {
+        foreach ($row->getData() as $index => $value) {
             $this->set($x, $index, $value);
         }
     }
@@ -210,4 +199,18 @@ class Mat
         $this->data = $data;
     }
 
+    public static function getIdentityMatrix($rows)
+    {
+        $identityMat = new Mat($rows, $rows);
+        for ($j = 0; $j < $rows; $j++) {
+            for ($i = 0; $i < $rows; $i++) {
+                if ($i == $j) {
+                    $identityMat->set($i, $j, 1);
+                } else {
+                    $identityMat->set($i, $j, 0);
+                }
+            }
+        }
+        return $identityMat;
+    }
 }
