@@ -127,7 +127,16 @@ class Mat
         return $row;
     }
 
-
+    /**
+     * @param int $y
+     * @param TransposedVector $row
+     */
+    public function setRow($y, $row)
+    {
+        foreach ($row->getData() as $index => $value) {
+            $this->set($index, $y, $value);
+        }
+    }
 
     /**
      * @param int $x
