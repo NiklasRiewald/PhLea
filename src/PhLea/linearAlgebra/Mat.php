@@ -150,11 +150,11 @@ class Mat
 
     /**
      * @param int $x
-     * @param Vector $row
+     * @param Vector $column
      */
-    public function setColumn($x, $row)
+    public function setColumn($x, $column)
     {
-        foreach ($row->getData() as $index => $value) {
+        foreach ($column->getData() as $index => $value) {
             $this->set($x, $index, $value);
         }
     }
