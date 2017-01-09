@@ -6,6 +6,9 @@ namespace PhLea\linearAlgebra;
 
 class SolverLU extends AbstractLinearSystemSolver
 {
+    /** @var Mat */
+    private $permutationMat;
+
     /**
      * @param Mat $A
      */
@@ -14,40 +17,36 @@ class SolverLU extends AbstractLinearSystemSolver
         parent::__construct($A);
         $matrixDecompositionLU = LinearAlgebraFactory::getInstanceOfMatrixDecompositionLU();
         $matrixDecompositionLU->decompose($this->A);
+        $this->permutationMat = $matrixDecompositionLU->getPermutationMatrix();
     }
 
     /**
-     * Returns true if the inversion is successful and false if the Matrix is singular or not square
-     *
      * @param Vector $b
      * @return Vector
      */
     public function solve(Vector $b)
     {
-        if ($this->A->getRows() != $this->A->getColumns()) {
-            return false;
-        }
-
-        $rowsMinusOne = $this->A->getRows() - 1;
-
         $z = new \SplFixedArray($this->A->getRows());
-        $z[0] = $b->getAtIndex(0);
-        for ($k = 1; $k < $this->A->getRows(); $k++) {
-            $s = 0;
-            for ($x = 0; $x < $k; $x++) {
-                $s += $this->A->get($x, $k) * $z[$x];
+        for ($y = 0; $y < $this->A->getRows(); $y++) {
+            for ($x = 0; $x < $this->A->getColumns(); $x++) {
+                if ($this->permutationMat->get($x, $y) != 0) {
+                    $z[$y] = $b->getAtIndex($x);
+                    break;
+                }
             }
-            $z[$k] = $b->getAtIndex($k) - $s;
         }
 
-
-        $z[$rowsMinusOne] = $z[$rowsMinusOne] / $this->A->get($rowsMinusOne, $rowsMinusOne);
-        for ($k = $rowsMinusOne - 1; $k >= 0; $k--) {
-            $s = 0;
-            for ($x = $k + 1; $x < $this->A->getRows(); $x++) {
-                $s += $this->A->get($x, $k) * $z[$x];
+        for ($y = 0; $y < $this->A->getRows(); $y++) {
+            for ($x = 0; $x < $y; $x++) {
+                $z[$y] -= $this->A->get($x, $y) * $z[$x];
             }
-            $z[$k] = ($z[$k] - $s) / $this->A->get($k, $k);
+        }
+
+        for ($y = $this->A->getRows() - 1; $y >= 0; $y--) {
+            for ($x = $y + 1; $x < $this->A->getRows(); $x++) {
+                $z[$y] -= $this->A->get($x, $y) * $z[$x];
+            }
+            $z[$y] = $z[$y] / $this->A->get($y, $y);
         }
 
         return new Vector($b->getRows(), $z);
