@@ -233,4 +233,20 @@ class Mat
         }
         return $identityMat;
     }
+
+    public function toString()
+    {
+        $matAsString = "";
+        for ($y = 0; $y < $this->rows; $y++) {
+            for ($x = 0; $x < $this->columns; $x++) {
+                $matAsString .= $this->get($x, $y) ."  ";
+            }
+            $matAsString .= "\n";
+        }
+        return $matAsString;
+    }
+
+    public function printMat() {
+        echo $this->toString();
+    }
 }
