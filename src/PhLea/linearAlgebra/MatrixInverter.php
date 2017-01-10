@@ -41,10 +41,12 @@ class MatrixInverter
             }
 
             $z = $this->linearSystemSolver->solve(new Vector($mat->getRows(), $b));
-
+            if ($z == false) {
+                return false;
+            }
             //copying data into result Matrix
             for ($x = 0; $x < $mat->getRows(); $x++) {
-                $resultMat->set($y, $x, $z[$x]);
+                $resultMat->set($y, $x, $z->getAtIndex($x));
             }
         }
         $mat->setData($resultMat->getData());

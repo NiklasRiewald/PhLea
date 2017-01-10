@@ -22,7 +22,7 @@ class SolverLU extends AbstractLinearSystemSolver
 
     /**
      * @param Vector $b
-     * @return Vector
+     * @return Vector|bool
      */
     public function solve(Vector $b)
     {
@@ -45,6 +45,9 @@ class SolverLU extends AbstractLinearSystemSolver
         for ($y = $this->A->getRows() - 1; $y >= 0; $y--) {
             for ($x = $y + 1; $x < $this->A->getRows(); $x++) {
                 $z[$y] -= $this->A->get($x, $y) * $z[$x];
+            }
+            if ($this->A->get($y, $y) == 0) {
+                return false;
             }
             $z[$y] = $z[$y] / $this->A->get($y, $y);
         }

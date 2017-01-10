@@ -37,12 +37,7 @@ class MatrixInverterTest extends \PHPUnit_Framework_TestCase
         )));
 
         $matrixInverter = LinearAlgebraFactory::getInstanceOfMatrixInverterLU($mat);
-        $matrixInverter->invert($mat);
-        $matExpected = new Mat(2, 2, \SplFixedArray::fromArray(array(
-            1 / 4
-        )));
-
-        $this->assertEquals($matExpected, $mat);
+        $this->assertEquals(false, $matrixInverter->invert($mat));
     }
 
     public function testInverseMatrixWithNecessaryPivoting()
