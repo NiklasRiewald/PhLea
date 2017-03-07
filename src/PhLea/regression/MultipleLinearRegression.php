@@ -3,24 +3,43 @@
 namespace PhLea\regression;
 
 use PhLea\linearAlgebra\Mat;
+use PhLea\linearAlgebra\Vector;
 
 class MultipleLinearRegression
 {
+
+    /** @var Mat */
+    private $coefficients;
 
     /**
      * Solves min ||Ax - b|| for x where ||*|| is the L2-Norm
      *
      * @param Mat $A
-     * @param Mat $b
-     * @param bool $addBiasTerm
+     * @param Vector $b
      * @return Mat
      */
-    public function computeLinearModel(Mat $A, Mat $b, $addBiasTerm = true)
+    public function fit(Mat $A, Vector $b)
     {
         $At = $A->getRealTranspose();
         $result = $At->dot($A);
-        $result->inverse();
+        $result->invert();
         $result = $result->dot($At);
-        return $result->dot($b);
+        $this->coefficients = $result->dot($b);
+    }
+
+    /**
+     * @param Vector $a
+     * @return Mat
+     */
+    public function predict(Vector $a)
+    {
+        return $this->coefficients->getTranspose()->dot($a);
+    }
+
+    /**
+     * @return Mat
+     */
+    public function getCoefficients() {
+        return $this->coefficients;
     }
 }
