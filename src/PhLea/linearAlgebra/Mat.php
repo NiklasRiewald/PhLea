@@ -63,6 +63,11 @@ class Mat
         return $resultMat;
     }
 
+    public function invert() {
+        $matrixInverter = LinearAlgebraFactory::getInstanceOfMatrixInverterLU($this);
+        $matrixInverter->invert($this);
+    }
+
     /**
      * @return Mat
      */
